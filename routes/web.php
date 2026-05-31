@@ -22,7 +22,7 @@ Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Dashboard Routes with RBAC
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'log.activity'])->group(function () {
     
     Route::get('/notifications', [\App\Http\Controllers\Notification\NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/read', [\App\Http\Controllers\Notification\NotificationController::class, 'markAsRead'])->name('notifications.read');
