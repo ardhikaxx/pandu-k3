@@ -22,28 +22,39 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'employee_id',
+        'phone',
+        'photo',
+        'division_id',
+        'work_area_id',
+        'company_id',
+        'is_active',
+        'last_login_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+
+    public function workArea()
+    {
+        return $this->belongsTo(WorkArea::class);
+    }
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login_at' => 'datetime',
+            'is_active' => 'boolean',
         ];
     }
 }
