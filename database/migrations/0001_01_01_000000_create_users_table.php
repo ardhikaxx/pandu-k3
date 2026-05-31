@@ -17,6 +17,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['super_admin', 'hse_manager', 'supervisor', 'worker'])->default('worker');
+            $table->string('employee_id', 20)->unique()->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('photo')->nullable();
+            $table->foreignId('division_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('work_area_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('company_id')->nullable()->constrained()->onDelete('set null');
+            $table->boolean('is_active')->default(true);
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
